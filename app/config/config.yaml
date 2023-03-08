@@ -1,0 +1,40 @@
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    username: "root"
+    password: "zhaoxijun7"
+    dbName: "simple_oauth2"
+  redis:
+    host: "localhost"
+    port: 6379
+    password: ""
+    db: 0
+    pool-size: 100
+
+jwt:
+  expires-time: 1440
+  secret-key: "dODNfSD821dd%%3vdh8"
+
+oauth2:
+  # oauth2 客户端配置
+  # 数组类型
+  # 可配置多客户端
+  client:
+    # 客户端id 必须全局唯一
+    - id: test_client_1
+      # 客户端 secret
+      secret: test_secret_1
+      # 应用名 在页面上必要时进行显示
+      name: 测试应用1
+      # 客户端 domain
+      domain: http://localhost:9093
+      # 权限范围
+      # 数组类型
+      # 可以配置多个权限
+      # 颁发的 access_token 中会包含该值 资源方可以对该值进行验证
+      scope:
+        # 权限范围 id 唯一
+        - id: all
+          # 权限范围名称
+          title: "用户账号、手机、权限、角色等信息"
