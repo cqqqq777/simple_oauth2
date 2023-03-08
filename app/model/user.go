@@ -25,13 +25,16 @@ var (
 	ErrorWrongPassword = errors.New("wrong password")
 )
 
-func (u UserInfo) Login() (aToken, rToken string, err error) {
+func (u *UserInfo) Login() (aToken, rToken string, err error) {
 	var password string
 	if err = g.Mdb.QueryRow("select password from users where username = ? ", u.Username).Scan(&password); err != nil {
 		return "", "", err
 	}
 	if password != u.Password {
 		return "", "", ErrorWrongPassword
+	}
+	if err = g.Mdb.QueryRow("select id from users where username = ?", u.Username).Scan(&u.Id); err != nil {
+		return "", "", err
 	}
 	aToken, rToken, err = utils.GetToken(u.Id)
 	if err != nil {
@@ -40,7 +43,7 @@ func (u UserInfo) Login() (aToken, rToken string, err error) {
 	return
 }
 
-func (u UserInfo) GetNickName() error {
-	err := g.Mdb.QueryRow("select nickname from users where username = ?", u.Username).Scan(&u.NickName)
+func (u *UserInfo) GetNickName() error {
+	err := g.Mdb.QueryRow("select nickname from users where id = ?", u.Id).Scan(&u.NickName)
 	return err
 }
