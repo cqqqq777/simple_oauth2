@@ -19,11 +19,13 @@ func IssueToken(params *model.Params, id string) (aToken, rToken, iToken string,
 		Username: params.Username,
 		Password: params.Password,
 	}
+	//获取access token和refresh token
 	aToken, rToken, err = user.Login()
 	if err != nil {
 		log.Println(err)
 		return "", "", "", err
 	}
+	//获取id token
 	if err = user.GetNickName(); err != nil {
 		return "", "", "", err
 	}
