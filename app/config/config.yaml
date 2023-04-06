@@ -3,7 +3,7 @@ database:
     host: "localhost"
     port: 3306
     username: "root"
-    password: "zhaoxijun7"
+    password: ""
     dbName: "simple_oauth2"
   redis:
     host: "localhost"
